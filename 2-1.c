@@ -49,8 +49,13 @@ int main()
 	float height = 512;
 
 	vector_t eye_pos = {0, 0, -5};
-	vector_t sphere_pos = {0, 0, 5};
-	float spehere_r = 1;
+	vector_t sphere_pos = {-1, 0, 5};
+	vector_t sphere_pos2 = {0, 0, 5};
+	vector_t sphere_pos3 = {1, 0, 5};
+	vector_t sphere_pos4 = {-1, 1, 5};
+	vector_t sphere_pos5 = {0, 1, 5};
+	vector_t sphere_pos6 = {1, 1, 5};
+	float spehere_r = 0.01;
 	vector_t pw;
 
 	float k_amb = 0.01;
@@ -85,7 +90,7 @@ int main()
 			B = 2 * dot(&eye_dir, &s_c);
 			C = squared_norm(&s_c) - SQR(spehere_r);
 			D = SQR(B) - 4 * A * C;
-			t_color color = {100, 149, 237};
+			t_color color = {0, 0, 0};
 			float t = -1;
 			if (D == 0)
 				t = -B / (2 * A);
@@ -101,55 +106,114 @@ int main()
 			}
 			if (t > 0)
 			{
-				vector_t int_pos;
-				vector_t light_dir;
-				vector_t sphere_n;
-
-				float lum_amb;
-				float lum_dif;
-				float lum_spe;
-				float lum_ref;
-
-				float nl_dot;
-
-				lum_amb = k_amb * ilum_amb;
-
-				int_pos = mult(&eye_dir, t);
-				int_pos = add(&int_pos, &eye_pos);
-
-				light_dir = sub(&light_pos, &int_pos);
-				normalize(&light_dir);
-				sphere_n = sub(&int_pos, &sphere_pos);
-				normalize(&sphere_n);
-
-				nl_dot = dot(&sphere_n, &light_dir);
-				nl_dot = CLAMP(nl_dot, 0, 1);
-				printf("dot is %f\n", nl_dot);
-				lum_dif = nl_dot * ilum_direct * k_dif;
-				lum_spe = 0;
-				if (nl_dot > 0)
-				{
-					vector_t ref_dir;
-					vector_t inv_eye_dir;
-					float vr_dot;
-
-					ref_dir = mult(&sphere_n, nl_dot * 2);
-					ref_dir = sub(&ref_dir, &light_dir);
-					normalize(&ref_dir);
-
-					inv_eye_dir = mult(&eye_dir, -1);
-					normalize(&inv_eye_dir);
-
-					vr_dot = dot(&inv_eye_dir, &ref_dir);
-					vr_dot = CLAMP(vr_dot, 0, 1);
-					lum_spe = k_spe * ilum_direct * pow(vr_dot, shininess);
-				}
-
-				lum_ref = lum_spe + lum_dif + lum_amb;
-				lum_ref = CLAMP(lum_ref, 0, 1);
-
-				color.red = color.green = color.blue = 255 * lum_ref;
+				color.red = color.green = color.blue = 255 * 1;
 			}
+
+			s_c = sub(&eye_pos, &sphere_pos2);
+			B = 2 * dot(&eye_dir, &s_c);
+			C = squared_norm(&s_c) - SQR(spehere_r);
+			D = SQR(B) - 4 * A * C;
+			if (D == 0)
+				t = -B / (2 * A);
+			else if (D > 0)
+			{
+				float t1 = (-B + sqrt(D)) / (2 * A);
+				float t2 = (-B - sqrt(D)) / (2 * A);
+
+				if (t1 > 0)
+					t = t1;
+				if (t2 > 0 && t2 < t)
+					t = t2;
+			}
+			if (t > 0)
+			{
+				color.red = color.green = color.blue = 255 * 1;
+			}
+
+			s_c = sub(&eye_pos, &sphere_pos3);
+			B = 2 * dot(&eye_dir, &s_c);
+			C = squared_norm(&s_c) - SQR(spehere_r);
+			D = SQR(B) - 4 * A * C;
+			if (D == 0)
+				t = -B / (2 * A);
+			else if (D > 0)
+			{
+				float t1 = (-B + sqrt(D)) / (2 * A);
+				float t2 = (-B - sqrt(D)) / (2 * A);
+
+				if (t1 > 0)
+					t = t1;
+				if (t2 > 0 && t2 < t)
+					t = t2;
+			}
+			if (t > 0)
+			{
+				color.red = color.green = color.blue = 255 * 1;
+			}
+
+						s_c = sub(&eye_pos, &sphere_pos4);
+			B = 2 * dot(&eye_dir, &s_c);
+			C = squared_norm(&s_c) - SQR(spehere_r);
+			D = SQR(B) - 4 * A * C;
+			if (D == 0)
+				t = -B / (2 * A);
+			else if (D > 0)
+			{
+				float t1 = (-B + sqrt(D)) / (2 * A);
+				float t2 = (-B - sqrt(D)) / (2 * A);
+
+				if (t1 > 0)
+					t = t1;
+				if (t2 > 0 && t2 < t)
+					t = t2;
+			}
+			if (t > 0)
+			{
+				color.red = color.green = color.blue = 255 * 1;
+			}
+
+						s_c = sub(&eye_pos, &sphere_pos5);
+			B = 2 * dot(&eye_dir, &s_c);
+			C = squared_norm(&s_c) - SQR(spehere_r);
+			D = SQR(B) - 4 * A * C;
+			if (D == 0)
+				t = -B / (2 * A);
+			else if (D > 0)
+			{
+				float t1 = (-B + sqrt(D)) / (2 * A);
+				float t2 = (-B - sqrt(D)) / (2 * A);
+
+				if (t1 > 0)
+					t = t1;
+				if (t2 > 0 && t2 < t)
+					t = t2;
+			}
+			if (t > 0)
+			{
+				color.red = color.green = color.blue = 255 * 1;
+			}
+
+			s_c = sub(&eye_pos, &sphere_pos6);
+			B = 2 * dot(&eye_dir, &s_c);
+			C = squared_norm(&s_c) - SQR(spehere_r);
+			D = SQR(B) - 4 * A * C;
+			if (D == 0)
+				t = -B / (2 * A);
+			else if (D > 0)
+			{
+				float t1 = (-B + sqrt(D)) / (2 * A);
+				float t2 = (-B - sqrt(D)) / (2 * A);
+
+				if (t1 > 0)
+					t = t1;
+				if (t2 > 0 && t2 < t)
+					t = t2;
+			}
+			if (t > 0)
+			{
+				color.red = color.green = color.blue = 255 * 1;
+			}
+			
 			mlx_pixel_put(mlx, mlx_win, x, y, trinity(color));
 			x++;
 		}
